@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7)), url("../../../assets/images/hero.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /*100 percent of viewport*/
+    background-attachment: fixed;
+    /*position: relative;*/
+}
+
+.heroTextBox {
+    position: absolute;
+    width: 750px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
