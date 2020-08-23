@@ -1,5 +1,4 @@
 import React, { useEffect,Suspense } from 'react';
-import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder'
 import Logout from './containers/Auth/Logout/Logout';
 import Spinner from './components/UI/Spinner/Spinner'

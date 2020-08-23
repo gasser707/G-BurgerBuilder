@@ -1,6 +1,5 @@
 import React from 'react';
 import Classes from './herobox.css';
-import hero from '../../../assets/images/hero.jpg';
 const herobox = (props) => {
 
     const btnClasses = [Classes.btn, Classes.btnFull];

@@ -116,7 +116,12 @@ const auth = props => {
     let errorMessage = null;
 
     if (props.error) {
-        errorMessage = <h4> {props.error.message}</h4>;
+        if (props.error.message === "EMAIL_EXISTS")
+            errorMessage = <h4>Sorry you can't signup with this E-mail, it's already taken!</h4>;
+        else if (props.error.message === "INVALID_PASSWORD")
+            errorMessage = <h4>Wrong password!</h4>;
+        else
+            errorMessage = <h4>{props.error.message}</h4>;
     }
 
     let redirect = null;
