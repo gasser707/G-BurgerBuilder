@@ -24,7 +24,7 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 const app = (
     <Provider store={store}>
-        <BrowserRouter basename="https://gasser707.github.io/G-BurgerBuilder/">
+        <BrowserRouter basename="/G-BurgerBuilder/">
             <App />
         </BrowserRouter>
     </Provider>
