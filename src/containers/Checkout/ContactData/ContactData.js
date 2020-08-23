@@ -1,11 +1,13 @@
-import React, { useState , useRef, useEffect} from 'react'
-import Button from '../../../components/UI/Button/Button'
+import React, { useState, useRef, useEffect } from 'react';
+import Button from '../../../components/UI/Button/Button';
 import Classes from './ContactData.css';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/Input/Input';
 import Modal from '../../../components/UI/Modal/Modal';
-import * as actions from '../../../store/actions/index'
-import { checkValidity } from '../../../Shared/checkValidity'
+import Lottie from 'react-lottie';
+import ninja from '../../../assets/ninja.json';
+import * as actions from '../../../store/actions/index';
+import { checkValidity } from '../../../Shared/checkValidity';
 import { connect } from 'react-redux';
 
 const contactData = props => {
@@ -102,19 +104,28 @@ const contactData = props => {
             validation: {},
             valid: true
         }
-    })
-    const focus = useRef(null)
+    });
 
-    const [formIsValid, setFormIsValid] = useState(false)
+    const lottieOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: ninja,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    };
+    const focus = useRef(null);
 
-    useEffect(()=>{
-        scrollToForm(focus)
-    },[focus])
+    const [formIsValid, setFormIsValid] = useState(false);
+
+    useEffect(() => {
+        scrollToForm(focus);
+    }, [focus]);
 
 
-    const scrollToForm = ref =>{
-        ref.current.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
-    }
+    const scrollToForm = ref => {
+        ref.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+    };
 
     const orderHandler = (event) => {
 
@@ -129,11 +140,11 @@ const contactData = props => {
             price: props.totalPrice,
             orderData: formData,
             userId: props.userId
-        }
+        };
 
 
-        props.onOrderBurger(order, props.token)
-    }
+        props.onOrderBurger(order, props.token);
+    };
 
     const inputChangedHandler = (event, inputIdentifier) => {
         const updatedOrderForm = {
@@ -152,15 +163,15 @@ const contactData = props => {
             formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
         }
 
-        setOrderForm(updatedOrderForm)
-        setFormIsValid(formIsValid)
-    }
+        setOrderForm(updatedOrderForm);
+        setFormIsValid(formIsValid);
+    };
 
     const closeModal = () => {
         if (props.result) {
             props.history.push('/');
         }
-    }
+    };
 
 
 
@@ -187,7 +198,7 @@ const contactData = props => {
                     touched={formElement.config.touched}
                     changed={(event) => inputChangedHandler(event, formElement.id)}
                     field={formElement.config.element_name}
-                    />
+                />
             ))}
             <Button btnType="Success" disabled={!formIsValid}>ORDER</Button>
         </form>
@@ -200,13 +211,20 @@ const contactData = props => {
 
     if (props.result) {
         result = <Modal show={props.response} modalClosed={closeModal}>
-            <p>Your Purchase was successful, your Order is being prepared by our Master Ninja Burger Maker!</p>
-        </Modal>
+            <Lottie
+                options={lottieOptions}
+                height={200}
+                width={200}
+            />
+            <p>Your purchase was successful, your order is being prepared by our Master Ninja Burger Maker!</p>
+        </Modal>;
     } else {
         result = <Modal show={props.response} modalClosed={closeModal}>
             <p>This is very sad but we couldn't get your order...sorry!</p>
-        </Modal>
+        </Modal>;
     }
+
+
 
     return (
         <div className={Classes.ContactData} ref={focus}>
@@ -214,8 +232,8 @@ const contactData = props => {
             {result}
 
         </div>
-    )
-}
+    );
+};
 
 
 const mapStateToProps = state => {
@@ -228,14 +246,14 @@ const mapStateToProps = state => {
         token: state.auth.token,
         userId: state.auth.userId
 
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
 
     return {
         onOrderBurger: (orderData, token) => dispatch(actions.purchaseBurger(orderData, token)),
-    }
-}
+    };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(contactData)
+export default connect(mapStateToProps, mapDispatchToProps)(contactData);

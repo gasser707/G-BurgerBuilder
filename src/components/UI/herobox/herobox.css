@@ -1,22 +1,112 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-header {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7)), url("../../../assets/images/hero.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 100vh; /*100 percent of viewport*/
-    background-attachment: fixed;
-    /*position: relative;*/
+.header {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)),
+    url('../../../assets/images/hero.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /*100 percent of viewport*/
+  background-attachment: fixed;
+  box-sizing: border-box;
 }
 
 .heroTextBox {
-    position: absolute;
-    width: 750px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  width: 60%;
+  height: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-75%, -10%);
+  color: whitesmoke;
+  font-family: 'Permanent Marker', cursive;
+  box-sizing: border-box;
 }
+.heroTextBox p{
+    margin:0;
+    font-size: 47px;
+}
+
+.heroText {
+    font-size: 35px;
+    font-weight: 20px;
+    margin-left: 80px;
+    padding-bottom: 4%;
+  }
+  
+  .btn{
+    font-size: 25px;
+    margin-left: 280px;
+
+  }
+
+.btn:link,
+.btn:visited {
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 200px;
+  text-decoration: none;
+  color: white;
+  border: 1px solid #e67e22;
+  transition: background-color 0.4s;
+  cursor: pointer;
+}
+
+.btnFull:link,
+.btnFull:visited {
+  /*flatui*/
+  background-color: #e67e22;
+}
+
+.btn:hover,
+.btn:active {
+  background-color: #b7661b;
+}
+
+
+
+
+    
+@media screen and (max-width: 950px) {
+    .heroTextBox p{
+        font-size:40px;
+    }
+
+    .heroText{
+        font-size:27px;
+    }
+    .btn{
+        font-size:23px;
+        padding:7px 10px;
+    }
+   
+   }
+    
+    @media screen and (max-width: 650px) {
+        .heroTextBox p{
+            font-size:35px;
+        }
+
+        .heroText{
+            font-size:25px;
+        }
+        .btn{
+            font-size:20px;
+            padding:5px 15px;
+        }
+    
+    }
+    
+    @media screen and (max-width: 480px) {
+    
+        .heroTextBox p{
+            font-size:27px;
+        }
+
+        .heroText{
+            font-size:20px;
+        }
+        .btn{
+            font-size:15px;
+            padding:5px 15px;
+            margin-left:150px
+        }
+    }
+

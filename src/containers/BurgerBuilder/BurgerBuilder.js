@@ -3,27 +3,28 @@ import React, { useEffect, Fragment } from 'react';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
-import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import Layout from '../../hoc/Layout/Layout';
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/WithErrorHandler/WithErrorHandler';
 import { connect } from 'react-redux';
-import * as burgerBuilderActions from '../../store/actions/index'
+import * as burgerBuilderActions from '../../store/actions/index';
 
 
 const burgerBuilder = props => {
 
-    const {onInitializeIngredients, onPurchaseCleanup}= props
+    const { onInitializeIngredients, onPurchaseCleanup } = props;
 
 
     useEffect(() => {
 
-        onPurchaseCleanup()
+        onPurchaseCleanup();
 
 
-       onInitializeIngredients()
+        onInitializeIngredients();
 
-    }, [onInitializeIngredients, onPurchaseCleanup])
+    }, [onInitializeIngredients, onPurchaseCleanup]);
 
 
     const checkoutHandler = () => {
@@ -31,27 +32,27 @@ const burgerBuilder = props => {
         //    this.setState({ checkout: true });
 
         if (props.isAuth) {
-            props.onSetCheckoutTrue()
+            props.onSetCheckoutTrue();
         } else
-            props.history.push('/auth')
+            props.history.push('/auth');
 
 
-    }
+    };
 
 
 
-   
-
-   const purchaseContinueHandler = () => {
 
 
-        props.history.push('/checkout')
+    const purchaseContinueHandler = () => {
 
 
-    }
+        props.history.push('/checkout');
 
 
-   const  updatePurchaseState = (updatedIngredients) => {
+    };
+
+
+    const updatePurchaseState = (updatedIngredients) => {
         let purchasable = false;
         let sum = 0;
         for (let x in updatedIngredients) {
@@ -61,62 +62,63 @@ const burgerBuilder = props => {
             purchasable = true;
         }
 
-        return purchasable
+        return purchasable;
 
+    };
+
+
+    const shouldDisable = { ...props.ings };
+    for (let key in props.ings) {
+        shouldDisable[key] = shouldDisable[key] <= 0;
     }
 
-    
-        const shouldDisable = { ...props.ings }
-        for (let key in props.ings) {
-            shouldDisable[key] = shouldDisable[key] <= 0
-        }
+    let orderSummary = (
+        <OrderSummary
+            ingredients={props.ings}
+            cancelPurchase={props.onSetCheckoutFalse}
+            totalPrice={props.price}
+            purchase={purchaseContinueHandler} />);
+    if (!props.ings) {
+        orderSummary = <Spinner />;
+    }
 
-        let orderSummary = (
-            <OrderSummary
-                ingredients={props.ings}
-                cancelPurchase={props.onSetCheckoutFalse}
-                totalPrice={props.price}
-                purchase={purchaseContinueHandler} />);
-        if (!props.ings) {
-            orderSummary = <Spinner />;
-        }
-
-        let burger = props.error ? <p>Ingredients can't be loaded</p> : <Spinner />;
+    let burger = props.error ? <p>Ingredients can't be loaded</p> : <Spinner />;
 
 
-        if (props.ings) {
+    if (props.ings) {
 
-            burger =
-                <Fragment>
-                    <Burger ingredients={props.ings} />
-                    <BuildControls
-                        addIngredient={props.onIngredientAdded}
-                        removeIngredient={props.onIngredientRemoved}
-                        shouldDisable={shouldDisable}
-                        price={props.price}
-                        purchasable={updatePurchaseState(props.ings)} //could have used this.props.price>4
-                        checkout={checkoutHandler}
-                        isAuth={props.isAuth}
-                    />
-                </Fragment>
-        }
-
-
-
-        return (
+        burger =
             <Fragment>
-                <Modal
-                    show={props.checkout}
-                    modalClosed={props.onSetCheckoutFalse}>
-                    {orderSummary}
-                </Modal>
-                {burger}
-
-            </Fragment>
-        )
-
-
+                <Burger ingredients={props.ings} />
+                <BuildControls
+                    addIngredient={props.onIngredientAdded}
+                    removeIngredient={props.onIngredientRemoved}
+                    shouldDisable={shouldDisable}
+                    price={props.price}
+                    purchasable={updatePurchaseState(props.ings)} //could have used this.props.price>4
+                    checkout={checkoutHandler}
+                    isAuth={props.isAuth}
+                />
+            </Fragment>;
     }
+
+
+
+    return (
+        <Fragment>
+            <Modal
+                show={props.checkout}
+                modalClosed={props.onSetCheckoutFalse}>
+                {orderSummary}
+            </Modal>
+            <Layout>
+                {burger}
+            </Layout>
+        </Fragment>
+    );
+
+
+};
 
 
 const mapStateToProps = state => {
@@ -127,8 +129,8 @@ const mapStateToProps = state => {
         checkout: state.burgerBuilder.checkout,
         isAuth: state.auth.token !== null
 
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -140,7 +142,7 @@ const mapDispatchToProps = dispatch => {
         onPurchaseCleanup: () => dispatch(burgerBuilderActions.purchaseCleanup())
 
 
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(burgerBuilder, axios));

@@ -1,8 +1,9 @@
-import React, {  useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Order from '../../components/Order/Order.js';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/WithErrorHandler/WithErrorHandler';
+import Layout from '../../hoc/Layout/Layout';
 import { connect } from 'react-redux';
 import * as burgerBuilderActions from '../../store/actions/index';
 
@@ -11,23 +12,25 @@ const orders = props => {
 
     useEffect(() => {
         onFetchOrders(props.token, props.userId);
-    },[onFetchOrders]);
+    }, [onFetchOrders]);
 
-    let orders = <Spinner/>
+    let orders = <Spinner />;
 
     if (props.orders) {
-       orders = props.orders.map(order => (
-      <Order
-        key={order.id}
-        ingredients={order.ingredients}
-        price={order.price}
-      />
-    ));
+        orders = props.orders.map(order => (
+            <Order
+                key={order.id}
+                ingredients={order.ingredients}
+                price={order.price}
+            />
+        ));
     }
     return (
-        <div>
-            {orders}
-        </div>
+        <Layout>
+            <div>
+                {orders}
+            </div>
+        </Layout>
     );
 };
 

@@ -6,6 +6,7 @@ import Spinner from './components/UI/Spinner/Spinner'
 import * as actions from './store/actions/index';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Herobox from './components/UI/herobox/herobox';
 
 const Checkout = React.lazy(() => {
   return import('./containers/Checkout/Checkout')
@@ -39,9 +40,7 @@ const app = props => {
 
       <Route path="/Burger" render = {(props)=><BurgerBuilder {...props}/>} />
       <Route path="/auth" render= {(props) =><Auth  {...props}/>} />
-
-      <Redirect to="/Burger" />
-
+      <Route path="/"  render ={()=><Herobox/>}/>
     </Switch>
 
   )
@@ -62,11 +61,9 @@ const app = props => {
 const spinner = <Spinner/>
   return (
     <div >
-      <Layout >
         <Suspense fallback={spinner}>
         {routes}
         </Suspense>
-      </Layout>
     </div>
   );
 }
