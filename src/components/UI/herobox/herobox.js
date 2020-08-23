@@ -1,5 +1,6 @@
 import React from 'react';
 import Classes from './herobox.css';
+import {NavLink} from 'react-router-dom'
 const herobox = (props) => {
 
     const btnClasses = [Classes.btn, Classes.btnFull];
@@ -8,7 +9,7 @@ const herobox = (props) => {
             <div className={Classes.heroTextBox}>
                 <p>The world's coolest Burger Builder</p>
                 <div className={Classes.heroText}>&ndash; By Gasser Aly</div>
-                <a className={btnClasses.join(' ')} href="/burger">Get Started!</a>
+                <NavLink className={btnClasses.join(' ')} to="/burger">Get Started!</NavLink>
             </div>
         </div>
     );
