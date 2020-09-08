@@ -1,8 +1,8 @@
 # G-BurgerBuilder
-######G-BurgerBuilder is a project that aims to simulate dynamic building of burger sandwiches. 
+###### G-BurgerBuilder is a project that aims to simulate dynamic building of burger sandwiches. 
 
 
-#How to test on your device
+# How to test on your device
 
 use `npm install` after forking the project and all the required packages should be installed.
 
