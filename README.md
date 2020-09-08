@@ -7,4 +7,4 @@
 use `npm install` after forking the project and all the required packages should be installed.
 
 ##### Important Note
-You have to create a `config.js` file and put in you own firebase REST auth login and sigup keys in order for the application to run correctly on your localhost server.
+You have to create a `config.js` file in the root directory of your project and put in you own firebase REST auth login and sigup keys in order for the application to run correctly on your localhost server.
